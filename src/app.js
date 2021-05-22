@@ -1,7 +1,8 @@
+import Movies from "./components/movies";
 const App = () => {
   return (
     <main className="container">
-      <h1>Hello world!</h1>
+      <Movies />
     </main>
   );
 };
