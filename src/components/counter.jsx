@@ -2,6 +2,16 @@ import React, { Component } from "react";
 class Counter extends Component {
   state = {
     count: 2,
+    tags: ["tag1", "tag2", "tag3"],
+  };
+
+  handleClick = () => {
+    this.setState((prev) => {
+      return {
+        ...this.state,
+        count: prev.count + 1,
+      };
+    });
   };
   formatCount = () => {
     const { count } = this.state;
@@ -16,7 +26,18 @@ class Counter extends Component {
     return (
       <>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button className="btn btn-secondary btn-sm">increment</button>
+        <button onClick={this.handleClick} className="btn btn-secondary btn-sm">
+          increment
+        </button>
+        {this.state.tags.length <= 0 ? (
+          <h1>here is nothing to display</h1>
+        ) : (
+          <ul>
+            {this.state.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+        )}
       </>
     );
   }
