@@ -1,17 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+const object = {
+  name: "rabo",
+  walk() {
+    console.log(this);
+  },
+};
+object.walk();
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+let result = object.walk.bind(object);
+result();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const person = {
+  name: "Bolagi",
+  wailk: function () {
+    console.log(this);
+  },
+};
+console.log(person);
+
+class MajorColor {
+  constructor(name) {
+    this.name = name;
+  }
+  whatColor() {
+    console.log("Hello I am ", this.name);
+  }
+}
+
+class SpecialColor extends MajorColor {
+  constructor(name, age) {
+    super(name);
+    this.age = age;
+  }
+  whatColorDo() {
+    console.log("I am a color the child class " + this.name);
+  }
+}
+
+const majorColorRed = new MajorColor("red");
+const majorColorBlue = new MajorColor("blue");
+
+console.log(majorColorRed);
+console.log(majorColorBlue);
+console.log(majorColorRed.whatColor());
+
+const specialColor = new SpecialColor("#000000", 23);
+console.log(specialColor.whatColor());
