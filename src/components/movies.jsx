@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 import ListGroup from "./common/listGroup";
-import Like from "./common/like";
 import Pagination from "./common/pagination";
 import { paginate } from "./utils/paginate";
+import MoviesTable from "./moviesTable";
 
 class Movies extends Component {
   state = {
@@ -59,41 +59,11 @@ class Movies extends Component {
         </div>
         <div className="col">
           <p>Showing {filtered.length} movies in the database</p>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Genre</th>
-                <th>Stock</th>
-                <th>Rate</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {movies.map((movie) => (
-                <tr key={movie._id}>
-                  <td>{movie.title}</td>
-                  <td>{movie.genre.name}</td>
-                  <td>{movie.numberInStock}</td>
-                  <td>{movie.rate}</td>
-                  <td>
-                    <Like
-                      onClick={() => this.handleClick(movie)}
-                      liked={movie.liked}
-                    />
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => this.handleDelete(movie)}
-                      className="btn btn-danger btn-sm"
-                    >
-                      delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <MoviesTable
+            movies={movies}
+            handleClick={this.handleClick}
+            handleDelete={this.handleDelete}
+          />
           <Pagination
             itemsCount={filtered.length}
             pageSize={pageSize}
