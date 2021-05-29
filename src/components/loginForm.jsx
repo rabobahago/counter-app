@@ -1,43 +1,36 @@
 import React, { Component } from "react";
+import Input from "./common/input";
 class LoginForm extends Component {
   state = {
     account: { password: "", username: "" },
   };
   handleChange = (e) => {
+    const { name, value } = e.currentTarget;
     const account = { ...this.state.account };
-    account[e.currentTarget.name] = e.currentTarget.value;
+    account[name] = value;
     this.setState({ account });
   };
   handleSubmit = (e) => {
     e.preventDefault();
   };
   render() {
+    const { username, password } = this.state.account;
     return (
       <div>
         <h2>Login Form</h2>
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              name="username"
-              onChange={this.handleChange}
-              value={this.state.account.username}
-              id="username"
-              type="text"
-              className="control-form"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              name="password"
-              onChange={this.handleChange}
-              value={this.state.account.password}
-              id="password"
-              type="password"
-              className="control-form"
-            />
-          </div>
+          <Input
+            name="username"
+            value={username}
+            label="Username"
+            onChange={this.handleChange}
+          />
+          <Input
+            name="password"
+            value={password}
+            label="Password"
+            onChange={this.handleChange}
+          />
           <button className="btn btn-primary">Login</button>
         </form>
       </div>
