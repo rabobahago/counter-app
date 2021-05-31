@@ -14,7 +14,7 @@ class LoginForm extends Component {
   validateProperty = ({ name, value }) => {
     let obj = { [name]: value };
     let schema = { [name]: this.schema[name] };
-    let error = Joi.validate(obj, schema);
+    let { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
   };
   handleChange = (e) => {
@@ -37,16 +37,18 @@ class LoginForm extends Component {
     for (let item of error.details) {
       errors[item.path[0]] = item.message;
     }
-    console.log(errors);
     return errors;
   };
   handleSubmit = (e) => {
     e.preventDefault();
     let errors = this.validate();
-    this.setState({ errors });
+    this.setState({ errors: errors || {} });
+    if (errors) return;
+    console.log("Submitted");
   };
   render() {
     const { account, errors } = this.state;
+    console.log(account, errors);
     return (
       <div>
         <h2>Login Form</h2>
@@ -65,7 +67,9 @@ class LoginForm extends Component {
             onChange={this.handleChange}
             error={errors.password}
           />
-          <button className="btn btn-primary">Login</button>
+          <button className="btn btn-primary" disabled={this.validate()}>
+            Login
+          </button>
         </form>
       </div>
     );
