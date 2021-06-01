@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Like from "./common/like";
 import Table from "./common/table";
+import Like from "./common/like";
 
 class MoviesTable extends Component {
   columns = [
@@ -12,32 +12,31 @@ class MoviesTable extends Component {
         <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
       ),
     },
-    { path: "genre.name", label: "Genre " },
+    { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Rate" },
     {
       key: "like",
       content: (movie) => (
-        <Like
-          onClick={() => this.props.handleClick(movie)}
-          liked={movie.liked}
-        />
+        <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
       ),
     },
     {
       key: "delete",
       content: (movie) => (
         <button
-          onClick={() => this.props.handleDelete(movie)}
+          onClick={() => this.props.onDelete(movie)}
           className="btn btn-danger btn-sm"
         >
-          delete
+          Delete
         </button>
       ),
     },
   ];
+
   render() {
     const { movies, onSort, sortColumn } = this.props;
+
     return (
       <Table
         columns={this.columns}
